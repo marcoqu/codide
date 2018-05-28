@@ -97,7 +97,7 @@ export class WhiteBoard {
 
         join.enter()
                 .append("div")
-                .attr("class", d => d.color || "")
+                .attr("class", d => d.getClasses())
                 .classed("note", true)
                 .call(this._dragBehaviour)
                 .on("mouseover", (d,i,g) => this._hovered = g[i])
@@ -107,7 +107,7 @@ export class WhiteBoard {
                 .style("left", d => `${d.x}px`)
                 .style("backgound-color", n => n.color || "white")
                 .classed("hovered", d => this._hovered == d)
-                .text((n) => n.text);
+                .text(d => d.getClasses());
 
         join.exit().remove();
     }
