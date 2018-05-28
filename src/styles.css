@@ -1,0 +1,163 @@
+#left-panel {
+    height: 100%; /* 100% Full-height */
+    width: 300px; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #228293; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    padding: 20px;
+}
+
+#left-panel .checkbox-wrapper {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: white;
+    padding-bottom: 10px;
+}
+
+#left-panel h1 {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 32px;
+    color: white;
+}
+
+#left-panel .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.note {
+    width: 260px;
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    border: 5px solid #ccc;
+}
+
+.variant {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 17px;
+    letter-spacing: 1px;
+}
+
+.note > .author {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+
+.color_1 {
+    border-color: #e41a1c;
+}
+
+.color_2 {
+    border-color: #377eb8;
+}
+
+.color_3 {
+    border-color: #4daf4a;
+}
+
+.color_4 {
+    border-color: #984ea3;
+}
+
+.color_5 {
+    border-color: #ff7f00;
+}
+
+.color_6 {
+    border-color: #ffff33;
+}
+
+.icons {
+    padding-top: 20px;
+    color: #4D4D4D;
+    width:100%;
+    height:24px;
+}
+
+.pillars {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    float: left;
+}
+.themes {
+    float: right;
+
+}
+
+.pillar {
+    display: none;
+    pointer-events: none;
+}
+
+.note.p1 .p1 {
+    display: inline;
+}
+
+.note.p2 .p2 {
+    display: inline;
+}
+
+.note.p3 .p3 {
+    display: inline;
+}
+
+.note.p4 .p4 {
+    display: inline;
+}
+
+.note .fas {
+    display: none;
+}
+
+.note.burning-issues .burning-issues {
+    display: inline;
+}
+
+.note.produzione-scientifica .produzione-scientifica {
+    display: inline;
+}
+
+.note.didattica-innovativa .didattica-innovativa {
+    display: inline;
+}
+
+.note.disseminazione .disseminazione {
+    display: inline;
+}
+
+.note.internazionalizzazione .internazionalizzazione {
+    display: inline;
+}
+
+.note.bovisa .bovisa {
+    display: inline;
+}
+
+#rescale-button {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
