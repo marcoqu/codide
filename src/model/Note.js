@@ -12,10 +12,11 @@ export class Note {
         this.x = obj.x || 0;
         this.y = obj.y || 0;
         this.color = obj.color;
+        this.new = !(obj.x || obj.y || obj.color);
     }
 
     getClasses() {
-        return `${this._pillars.join(" ")} ${this._themes.join(" ")} ${this.color || ""}`;
+        return `${this._pillars.join(" ")} ${this._themes.join(" ")} ${this.color || ""} ${this.new ? "new" : ""}`;
     }
 
 }

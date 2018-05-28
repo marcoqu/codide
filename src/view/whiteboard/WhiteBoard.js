@@ -16,6 +16,7 @@ export class WhiteBoard {
         this._container = container;
         this._currentTransform = d3.zoomIdentity;
         this._hovered = null;
+        this._zindex = 0;
 
         this._initBoard();
         this._initKeybindings();
@@ -63,7 +64,10 @@ export class WhiteBoard {
 
     _onDragStart(d, i, g) {
         d3.event.sourceEvent.stopPropagation();
-        d3.select(g[i]).classed("dragging", true);
+        d3.select(g[i])
+            .classed("dragging", true)
+            .classed("new", false)
+            .style("z-index", this._zindex++);
     }
 
     _onDrag(d, i, g) {

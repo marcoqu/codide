@@ -11,25 +11,25 @@ export class Panel {
      */
     constructor(model, container) {
         this._model = model;
-        this._container = d3.select(container);
+        this._panelContainer = d3.select("#menu");
 
         this._initElements();
     }
 
     _initElements() {
-        this._container.select("#hamburger").on("click", () => this._onHambugerClicked());
-        this._container.select("#close").on("click", () => this._onCloseClicked());
+        this._panelContainer.select("#hamburger").on("click", () => this._onHambugerClicked());
+        this._panelContainer.select(".closebtn").on("click", () => this._onCloseClicked());
 
-        this._container.selectAll("pillars-cb").on("change", () => this._onChange());
-        this._container.selectAll("themes-cb").on("change", () => this._onChange());
+        this._panelContainer.selectAll(".pillars-cb").on("click", () => this._onChange());
+        this._panelContainer.selectAll(".themes-cb").on("click", () => this._onChange());
     }
 
     _onChange() {
-        const pillars = [...this._container.selectAll("pillars-cb").nodes()]
+        const pillars = [...this._panelContainer.selectAll(".pillars-cb").nodes()]
             .filter(e => e.checked)
             .map(e => e.value);
 
-        const themes = [...this._container.selectAll("themes-cb").nodes()]
+        const themes = [...this._panelContainer.selectAll(".themes-cb").nodes()]
             .filter(e => e.checked)
             .map(e => e.value);
 
@@ -37,11 +37,11 @@ export class Panel {
     }
 
     _onHambugerClicked() {
-        this._container.classed("open", true);
+        this._panelContainer.classed("open", true);
     }
 
     _onCloseClicked() {
-        this._container.classed("open", false);
+        this._panelContainer.classed("open", false);
     }
 
 }

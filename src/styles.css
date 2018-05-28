@@ -17,7 +17,12 @@ HTML, BODY {
     height: 100%;
 }
 
+#menu.open #left-panel {
+    margin-left: 0;
+}
+
 #left-panel {
+    margin-left: -300px;
     height: 100%; /* 100% Full-height */
     width: 300px; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
@@ -28,6 +33,13 @@ HTML, BODY {
     overflow-x: hidden; /* Disable horizontal scroll */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
     padding: 20px;
+    box-sizing: border-box;
+}
+
+#hamburger {
+    position: absolute;
+    top: 20px;
+    left: 20px;
 }
 
 #left-panel .checkbox-wrapper {
@@ -68,6 +80,10 @@ HTML, BODY {
     letter-spacing: 1px;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
     border: 5px solid #ccc;
+}
+
+.note.dragging {
+    z-index: 999;
 }
 
 .variant {
@@ -174,10 +190,14 @@ HTML, BODY {
     display: inline;
 }
 
+.note.new {
+    background-color: yellow;
+}
+
 #rescale-button {
     width: 60px;
     height: 60px;
     position: fixed;
-    bottom: 0;
-    left: 0;
+    bottom: 20px;
+    right: 20px;
 }
