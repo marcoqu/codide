@@ -1,8 +1,6 @@
 import { WhiteBoard } from "./whiteboard/WhiteBoard";
 import { Panel } from "./panel/Panel";
 
-import "./view.css";
-
 export class View {
 
     constructor(model) {

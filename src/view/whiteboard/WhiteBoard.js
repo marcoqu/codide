@@ -3,8 +3,7 @@ import * as d3 from "d3";
 import { Model } from "../../model/Model";
 import { Note } from "../../model/Note";
 
-import whiteboardTpl from "./whiteboard.tpl";
-import "./whiteboard.css";
+import noteTpl from "./note.tpl";
 
 export class WhiteBoard {
     /**
@@ -18,15 +17,10 @@ export class WhiteBoard {
         this._currentTransform = d3.zoomIdentity;
         this._hovered = null;
 
-        this._initElements();
         this._initBoard();
         this._initKeybindings();
 
         this._model.dataChanged.add((notes) => this._onDataChanged(notes));
-    }
-
-    _initElements() {
-        this._container.innerHTML = whiteboardTpl();
     }
 
     _initBoard() {
@@ -107,7 +101,7 @@ export class WhiteBoard {
                 .style("left", d => `${d.x}px`)
                 .style("backgound-color", n => n.color || "white")
                 .classed("hovered", d => this._hovered == d)
-                .text(d => d.getClasses());
+                .html(d => noteTpl(d))
 
         join.exit().remove();
     }
