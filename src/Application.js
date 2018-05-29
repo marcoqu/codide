@@ -14,7 +14,7 @@ export class Application {
         this._model = new Model(CONFIG.sheetId);
         this._view = new View(this._model);
 
-        this._model.loadData();
+        this._model.startPolling();
     }
 
 }

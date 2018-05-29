@@ -72,6 +72,16 @@ export class WhiteBoard {
             .style("z-index", this._zindex++);
     }
 
+    _onNoteOver(d, i, g) {
+        this._hovered = g[i];
+        d3.select(this._hovered).classed("hovered", true);
+    }
+
+    _onNoteOut(d, i, g) {
+        this._hovered = null;
+        d3.select(this._hovered).classed("hovered", false);
+    }
+
     _onDrag(d, i, g) {
         d.x += d3.event.dx / this._currentTransform.k;
         d.y += d3.event.dy / this._currentTransform.k;
@@ -100,13 +110,12 @@ export class WhiteBoard {
                 .attr("class", d => d.getClasses())
                 .classed("note", true)
                 .call(this._dragBehaviour)
-                .on("mouseover", (d,i,g) => this._hovered = g[i])
-                .on("mouseout", (d,i,g) => this._hovered = null)
+                .on("mouseover", (d,i,g) => this._onNoteOver(d,i,g))
+                .on("mouseout", (d,i,g) => this._onNoteOut(d,i,g))
             .merge(join)
                 .style("top", d => `${d.y}px`)
                 .style("left", d => `${d.x}px`)
                 .style("backgound-color", n => n.color || "white")
-                .classed("hovered", d => this._hovered == d)
                 .html(d => noteTpl(d))
 
         join.exit().remove();

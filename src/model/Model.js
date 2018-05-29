@@ -20,18 +20,20 @@ export class Model {
     }
 
     startPolling() {
-        console.log("polling");
-        this._poller = setInterval(() => this.loadData(), 3000);
+        console.log("start polling");
+        this.loadData()
+        this._poller = setInterval(() => this.loadData(), 1000 * 30); // 30 seconds
     }
-
+    
     stopPolling() {
+        console.log("stop polling");
         clearInterval(this._poller);
     }
 
     update() {
         const filtered = this._notes.filter(n => this._filterData(n));
         this.dataChanged.dispatch(filtered);
-        console.log("data loaded");
+        console.log("data updated");
     }
     
     async loadData() {
