@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import { Signal } from "signals";
 
 import { Model } from "../../model/Model";
 
@@ -12,6 +13,7 @@ export class Panel {
     constructor(model, container) {
         this._model = model;
         this._panelContainer = d3.select("#menu");
+        this.hovered = new Signal();
 
         this._initElements();
     }
@@ -22,6 +24,9 @@ export class Panel {
 
         this._panelContainer.selectAll(".pillars-cb").on("click", () => this._onChange());
         this._panelContainer.selectAll(".themes-cb").on("click", () => this._onChange());
+        
+        this._panelContainer.selectAll(".checkbox-wrapper").on("mouseover", (d,i,g) => this._onCbOver(d,i,g));
+        this._panelContainer.selectAll(".checkbox-wrapper").on("mouseout", (d,i,g) => this._onCbOut(d,i,g));
     }
 
     _onChange() {
@@ -42,6 +47,15 @@ export class Panel {
 
     _onCloseClicked() {
         this._panelContainer.classed("open", false);
+    }
+
+    _onCbOver(d, i, g) {
+        const val = d3.select(g[i]).select("input").property("value");
+        this.hovered.dispatch(val);
+    }
+    
+    _onCbOut(d, i, g) {
+        this.hovered.dispatch(null);
     }
 
 }

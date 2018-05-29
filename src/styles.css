@@ -93,6 +93,11 @@ HTML, BODY {
     cursor: pointer;
 }
 
+.note.highlighted {
+    border-width: 15px;
+    margin: -10px 0 0 -10px;
+}
+
 .variant {
     font-family: 'Open Sans', sans-serif;
     font-size: 17px;

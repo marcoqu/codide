@@ -26,6 +26,11 @@ export class WhiteBoard {
         this._model.dataChanged.add((notes) => this._onDataChanged(notes));
     }
 
+    highlightNotes(val) {
+        this._whiteBoard.selectAll(".note")
+            .classed("highlighted", d => val && (d.hasTheme(val) || d.hasPillar(val)))
+    }
+
     _initBoard() {
         this._zoomBehaviour = d3.zoom()
             .on("zoom", () => this._onZoomed());
@@ -78,8 +83,8 @@ export class WhiteBoard {
     }
 
     _onNoteOut(d, i, g) {
-        this._hovered = null;
         d3.select(this._hovered).classed("hovered", false);
+        this._hovered = null;
     }
 
     _onDrag(d, i, g) {

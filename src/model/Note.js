@@ -19,6 +19,14 @@ export class Note {
         return `${this._pillars.join(" ")} ${this._themes.join(" ")} ${this.color || ""} ${this.new ? "new" : ""}`;
     }
 
+    hasTheme(theme) {
+        return this._themes.includes(theme);
+    }
+
+    hasPillar(pillar) {
+        return this._pillars.includes(pillar);
+    }
+
 }
 
 Note.THEMES = {
