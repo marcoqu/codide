@@ -1,3 +1,10 @@
+// @ts-ignore
+import * as fontawesome  from "@fortawesome/fontawesome";
+// @ts-ignore
+import solid from '@fortawesome/fontawesome-free-solid';
+
+fontawesome.library.add(solid);
+
 import { WhiteBoard } from "./whiteboard/WhiteBoard";
 import { Panel } from "./panel/Panel";
 

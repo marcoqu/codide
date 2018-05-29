@@ -3,6 +3,7 @@ import * as d3 from "d3";
 import { Model } from "../../model/Model";
 import { Note } from "../../model/Note";
 
+// @ts-ignore
 import noteTpl from "./note.tpl";
 
 export class WhiteBoard {
@@ -20,7 +21,8 @@ export class WhiteBoard {
 
         this._initBoard();
         this._initKeybindings();
-
+        
+        // @ts-ignore
         this._model.dataChanged.add((notes) => this._onDataChanged(notes));
     }
 
