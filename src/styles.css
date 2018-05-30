@@ -146,6 +146,10 @@ HTML, BODY {
     padding-bottom: 10px;
 }
 
+.color0 {
+    border-color: #cccccc;
+}
+
 .color1 {
     border-color: #e41a1c;
 }
@@ -238,7 +242,20 @@ HTML, BODY {
 }
 
 .note.new {
-    background-color: yellow;
+    animation-name: newnote;
+    animation-duration: 1s;
+    animation-timing-function: ease-in;
+}
+
+@keyframes newnote {
+    from {
+        opacity: 0.5;
+        box-shadow: 0 0 0 0px rgba(0,0,0,0.1);
+    }
+    to {
+        opacity: 1;
+        box-shadow: 0 0 0 5000px rgba(0,0,0,0.0);
+    }
 }
 
 #rescale-button {
