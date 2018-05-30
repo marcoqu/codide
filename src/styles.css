@@ -130,6 +130,10 @@ HTML, BODY {
     padding-bottom: 10px;
 }
 
+.color0 {
+    border-color: #cccccc;
+}
+
 .color1 {
     border-color: #e41a1c;
 }

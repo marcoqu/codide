@@ -50,11 +50,11 @@ export class WhiteBoard {
     }
 
     _onKeyPress() {
-        if(d3.event.keyCode < 49 || d3.event.keyCode > 54) return;
+        if(d3.event.keyCode < 48 || d3.event.keyCode > 54) return;
         
         const nColor = d3.event.keyCode - 48;
         d3.select(this._hovered)
-            .classed("color1 color2 color3 color4 color5 color6", false)
+            .classed("color0 color1 color2 color3 color4 color5 color6", false)
             .classed(`color${nColor}`, true)
             .each(d => d.color = `color${nColor}`);
         this._model._saveStorage();

@@ -11,7 +11,8 @@
 #### NEW FEATURES:
 - Zoom to bounds
 - New note notification
-- New note positioning
+- ✅ "0" to remove color
+- ✅ New note positioning
 - ? Remove text on low zoom levels
 - ? Additional data only on hover
 - ? Grid snapping
