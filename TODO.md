@@ -17,4 +17,4 @@
 - ? Additional data only on hover
 - ? Grid snapping
 - ✅ Highlight notes when hovering on categories
-- Hovering the checkbox label, icons in notes are colored
+- ✅ Hovering the checkbox label, icons in notes are colored
