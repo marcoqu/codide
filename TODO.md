@@ -9,7 +9,7 @@
 - ✅ Use polling instead of one-time loading
 
 #### NEW FEATURES:
-- Zoom to bounds
+- ✅ Zoom to bounds
 - ✅ New note notification
 - ✅ "0" to remove color
 - ✅ New note positioning
