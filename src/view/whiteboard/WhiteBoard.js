@@ -62,9 +62,9 @@ export class WhiteBoard {
 
     _onZoomed() {
         const tr = this._currentTransform = d3.event.transform;
-        const mouse = d3.mouse(this._whiteBoardContainer.node());
-        this._whiteBoard.style("transform-origin", `${(mouse[0] - tr.x) * tr.k}px ${(mouse[1] - tr.y) * tr.k}px`);
+        const mouse = d3.mouse(this._whiteBoard.node());
         this._whiteBoard.style("transform", `translate(${tr.x}px ,${tr.y}px) scale(${tr.k})`);
+        this._whiteBoard.style("transform-origin", `0 0`);
     }
 
     _onDragStart(d, i, g) {

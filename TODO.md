@@ -1,6 +1,6 @@
 #### BUGS:  
-- Slight jump on zoomed-out panning
-- Zoom not exactly centered on mouse
+- ✅ Slight jump on zoomed-out panning
+- ✅ Zoom not exactly centered on mouse
 - ✅ Mousewheel should zoom also on notes
 - CODIDE logo missing
 - note styles: .hovered .dragging .highlighted .new
