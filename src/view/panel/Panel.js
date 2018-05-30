@@ -14,6 +14,7 @@ export default class Panel {
 
     _initListeners() {
         this._menu.select('#hamburger').on('click', () => this._onHambugerClicked());
+        this._menu.select('#clear-local-storage').on('click', () => this._onClearStorageClicked());
         this._menu.select('.closebtn').on('click', () => this._onCloseClicked());
 
         this._menu.selectAll('.pillars-cb').on('click', () => this._onFilterChange());
@@ -39,6 +40,11 @@ export default class Panel {
 
     _onHambugerClicked() {
         this._menu.classed('open', true);
+    }
+
+    _onClearStorageClicked() {
+        this._model.clearLocalStorage();
+        return false;
     }
 
     _onCloseClicked() {
