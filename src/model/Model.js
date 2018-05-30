@@ -35,6 +35,10 @@ export class Model {
         this.dataChanged.dispatch(filtered);
         console.log("data updated");
     }
+
+    clearStorage() {
+        window.localStorage.clear();
+    }
     
     async loadData() {
         const rawData = await this._loadCSV();
