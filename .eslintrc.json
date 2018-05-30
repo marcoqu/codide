@@ -1,0 +1,15 @@
+{
+    "extends": "airbnb-base",
+    "env": {
+        "browser": true
+    },
+    "rules": {
+        "indent": ["error", 4],
+        "no-console":"warn",
+        "no-underscore-dangle":"off",
+        "class-methods-use-this":"off",
+        "quote-props":"off",
+        "no-param-reassign": ["error", { "props": false }],
+        "no-constant-condition": ["error", { "checkLoops": false }]
+    }
+}

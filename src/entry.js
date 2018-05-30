@@ -1,6 +1,4 @@
-import { Application } from "./Application"; 
-
-console.log("entry");
+import Application from './Application';
 
 // @ts-ignore
-window.app = new Application(); 
+window.app = new Application();

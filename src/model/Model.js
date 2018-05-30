@@ -1,11 +1,10 @@
-import * as d3 from "d3";
-import { Signal } from "signals";
-import { intersection } from "lodash-es";
+import * as d3 from 'd3';
+import { Signal } from 'signals';
+import { intersection } from 'lodash-es';
 
-import { Note } from "./Note";
+import Note from './Note';
 
-export class Model {
-
+export default class Model {
     constructor(sheetId) {
         this._sheetId = sheetId;
         this.dataChanged = new Signal();
@@ -20,26 +19,23 @@ export class Model {
     }
 
     startPolling() {
-        console.log("start polling");
-        this.loadData()
-        this._poller = setInterval(() => this.loadData(), 1000 * 30); // 30 seconds
+        this.loadData();
+        this._poller = setInterval(() => this.loadData(), 1000 * Model.POLLING_SECONDS);
     }
-    
+
     stopPolling() {
-        console.log("stop polling");
         clearInterval(this._poller);
     }
 
     update() {
         const filtered = this._notes.filter(n => this._filterData(n));
         this.dataChanged.dispatch(filtered);
-        console.log("data updated");
     }
 
     clearStorage() {
         window.localStorage.clear();
     }
-    
+
     async loadData() {
         const rawData = await this._loadCSV();
         const storedData = this._loadStorage();
@@ -47,13 +43,13 @@ export class Model {
         this.update();
     }
 
-    /**
-     * 
-     * @param {Note} n 
-     */
     _filterData(n) {
-        const pillarMatch = !n._pillars.length || !this._activePillars.length || !!intersection(n._pillars, this._activePillars).length
-        const themesMatch = !n._themes.length || !this._activeThemes.length || !!intersection(n._themes, this._activeThemes).length
+        const pillarMatch = !n._pillars.length ||
+                        !this._activePillars.length ||
+                        !!intersection(n._pillars, this._activePillars).length;
+        const themesMatch = !n._themes.length ||
+                        !this._activeThemes.length ||
+                        !!intersection(n._themes, this._activeThemes).length;
         return pillarMatch && themesMatch;
     }
 
@@ -63,7 +59,7 @@ export class Model {
     }
 
     _loadStorage() {
-        const jsonStr = window.localStorage.getItem("localData") || "{}";
+        const jsonStr = window.localStorage.getItem('localData') || '{}';
         return JSON.parse(jsonStr);
     }
 
@@ -76,14 +72,15 @@ export class Model {
             };
             return memo;
         }, {});
-        window.localStorage.setItem("localData", JSON.stringify(obj));
+        window.localStorage.setItem('localData', JSON.stringify(obj));
     }
 
     _parse(rawData, storedData) {
         return rawData.map((row, idx) => {
             const storedItem = storedData[idx] || {};
-            return new Note(idx, {...row, ...storedItem});
+            return new Note(idx, { ...row, ...storedItem });
         });
     }
-
 }
+
+Model.POLLING_SECONDS = 30;
