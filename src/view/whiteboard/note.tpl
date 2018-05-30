@@ -1,4 +1,4 @@
-<div class="author"><%= obj._author %></div>
+<div class="author" title="<%= obj.author %>"><%= obj.getInitials() %></div>
 <div class="note_text"><%= obj.text %></div>
 <div class="icons">
     <div class="pillars">
