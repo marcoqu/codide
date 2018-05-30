@@ -18,6 +18,8 @@ HTML, BODY {
     height: 100%;
 }
 
+/* LEFT PANEL */
+
 #hamburger {
     background-color: #228293;
     color: white;
@@ -30,6 +32,13 @@ HTML, BODY {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#logo-codide img {
+    height: 60px;
+    position: absolute;
+    top: 10px;
+    left: 80px;
 }
 
 #menu.open #left-panel {
@@ -92,6 +101,8 @@ HTML, BODY {
     align-items: center;
     justify-content: center;
 }
+
+/* NOTES STYLE */
 
 .note {
     position: absolute;
