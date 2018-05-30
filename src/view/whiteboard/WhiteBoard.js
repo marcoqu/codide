@@ -102,6 +102,7 @@ export class WhiteBoard {
      * @param {Note[]} notes 
      */
     _onDataChanged(notes) {
+        this._notes = notes;
 
         const join = this._whiteBoard.selectAll(".note").data(notes, (n) => {
             return n.id;
@@ -114,6 +115,7 @@ export class WhiteBoard {
                 .call(this._dragBehaviour)
                 .on("mouseover", (d,i,g) => this._onNoteOver(d,i,g))
                 .on("mouseout", (d,i,g) => this._onNoteOut(d,i,g))
+                .each(n => this._setInitialPosition(n))
             .merge(join)
                 .style("top", d => `${d.y}px`)
                 .style("left", d => `${d.x}px`)
@@ -121,6 +123,22 @@ export class WhiteBoard {
                 .html(d => noteTpl(d))
 
         join.exit().remove();
+    }
+
+    _setInitialPosition(note) {
+        if (note.x && note.y) { return; }
+        let x = -this._currentTransform.y / this._currentTransform.k;
+        let y = -this._currentTransform.y / this._currentTransform.k;
+        while (true) {
+            const found = this._notes.find(n => n.x == x && n.y == y);
+            if (!found) { 
+                note.x = x;
+                note.y = y;
+                break;
+            }
+            x += 20;
+            y += 20;
+        }
     }
 
 }
