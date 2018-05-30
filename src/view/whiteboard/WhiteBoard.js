@@ -65,6 +65,7 @@ export class WhiteBoard {
         const mouse = d3.mouse(this._whiteBoard.node());
         this._whiteBoard.style("transform", `translate(${tr.x}px ,${tr.y}px) scale(${tr.k})`);
         this._whiteBoard.style("transform-origin", `0 0`);
+        this._whiteBoard.classed("low_zoom", tr.k < WhiteBoard.LOW_ZOOM);
     }
 
     _onDragStart(d, i, g) {
@@ -142,3 +143,5 @@ export class WhiteBoard {
     }
 
 }
+
+WhiteBoard.LOW_ZOOM = 0.3;

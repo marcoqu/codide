@@ -142,6 +142,12 @@ HTML, BODY {
     user-select: none;
 }
 
+.low_zoom .note .author,
+.low_zoom .note .note_text,
+.low_zoom .note .icons {
+    opacity: 0;
+}
+
 .note.dragging {
     z-index: 999;
 }
