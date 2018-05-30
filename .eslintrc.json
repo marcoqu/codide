@@ -10,6 +10,7 @@
         "class-methods-use-this":"off",
         "quote-props":"off",
         "no-param-reassign": ["error", { "props": false }],
-        "no-constant-condition": ["error", { "checkLoops": false }]
+        "no-constant-condition": ["error", { "checkLoops": false }],
+        "padded-blocks": ["error", { "classes": "always" }]
     }
 }

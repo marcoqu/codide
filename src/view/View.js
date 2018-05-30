@@ -11,15 +11,17 @@ import Panel from './panel/Panel';
 fontawesome.library.add(solid);
 
 export default class View {
-    constructor(model) {
+
+    constructor(model, config) {
         this._model = model;
+        this._container = window.document.body;
 
-        this._wb = new WhiteBoard(this._model, window.document.body);
-        this._panel = new Panel(this._model, window.document.body);
-        this._panel.hovered.add(val => this._wb.highlightNotes(val));
+        this._whiteBoard = new WhiteBoard(this._model, this._container, config);
 
-        d3.select('#rescale-button').on('click', () => {
-            this._wb.zoomToBounds();
-        });
+        this._panel = new Panel(this._model, this._container);
+        this._panel.categoryHovered.add(val => this._whiteBoard.highlightCategory(val));
+
+        d3.select('#rescale-button').on('click', () => this._whiteBoard.zoomToBounds());
     }
+
 }

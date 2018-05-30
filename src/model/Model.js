@@ -5,31 +5,31 @@ import { intersection } from 'lodash-es';
 import Note from './Note';
 
 export default class Model {
-    constructor(sheetId) {
-        this._sheetId = sheetId;
-        this.dataChanged = new Signal();
+
+    constructor(config) {
+        this._sheetId = config.sheetId;
+        if (!this._sheetId) { throw new Error('No sheet id found. Check the config.json file.'); }
+
+        this._pollingDelay = config.pollingSeconds || Model.POLLING_SECONDS;
         this._activePillars = [];
         this._activeThemes = [];
+
+        this.dataChanged = new Signal();
     }
 
     setFilters(pillars, themes) {
         this._activePillars = pillars;
         this._activeThemes = themes;
-        this.update();
+        this._updateData();
     }
 
     startPolling() {
         this.loadData();
-        this._poller = setInterval(() => this.loadData(), 1000 * Model.POLLING_SECONDS);
+        this._poller = setInterval(() => this.loadData(), 1000 * this._pollingDelay);
     }
 
     stopPolling() {
         clearInterval(this._poller);
-    }
-
-    update() {
-        const filtered = this._notes.filter(n => this._filterData(n));
-        this.dataChanged.dispatch(filtered);
     }
 
     clearStorage() {
@@ -37,10 +37,17 @@ export default class Model {
     }
 
     async loadData() {
-        const rawData = await this._loadCSV();
-        const storedData = this._loadStorage();
-        this._notes = this._parse(rawData, storedData);
-        this.update();
+        const rawData = await this._loadSpreadsheetCSV();
+        const storedData = this._loadLocalStorage();
+        this._notes = this._parseNotes(rawData, storedData);
+        this._updateData();
+    }
+
+    // HELPERS
+
+    _updateData() {
+        const filtered = this._notes.filter(n => this._filterData(n));
+        this.dataChanged.dispatch(filtered);
     }
 
     _filterData(n) {
@@ -53,17 +60,26 @@ export default class Model {
         return pillarMatch && themesMatch;
     }
 
-    async _loadCSV() {
+    async _loadSpreadsheetCSV() {
         const url = `https://docs.google.com/spreadsheets/d/e/${this._sheetId}/pub?output=csv`;
         return d3.csv(url);
     }
 
-    _loadStorage() {
+    _parseNotes(rawData, storedData) {
+        return rawData.map((row, idx) => {
+            const storedItem = storedData[idx] || {};
+            return new Note(idx, { ...row, ...storedItem });
+        });
+    }
+
+    // LOCAL STORAGE
+
+    _loadLocalStorage() {
         const jsonStr = window.localStorage.getItem('localData') || '{}';
         return JSON.parse(jsonStr);
     }
 
-    _saveStorage() {
+    _saveLocalStorage() {
         const obj = this._notes.reduce((memo, note, idx) => {
             memo[idx] = {
                 x: note.x,
@@ -75,12 +91,6 @@ export default class Model {
         window.localStorage.setItem('localData', JSON.stringify(obj));
     }
 
-    _parse(rawData, storedData) {
-        return rawData.map((row, idx) => {
-            const storedItem = storedData[idx] || {};
-            return new Note(idx, { ...row, ...storedItem });
-        });
-    }
 }
 
 Model.POLLING_SECONDS = 30;

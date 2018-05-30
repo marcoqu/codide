@@ -1,4 +1,5 @@
 export default class Note {
+
     constructor(id, obj) {
         this.id = id;
 
@@ -23,7 +24,11 @@ export default class Note {
     }
 
     getClasses() {
-        return `${this._pillars.join(' ')} ${this._themes.join(' ')} ${this.color || ''} ${this.new ? 'new' : ''}`;
+        const pillars = this._pillars.join(' ');
+        const themes = this._themes.join(' ');
+        const color = this.color || '';
+        const newNote = this.new ? 'new' : '';
+        return `${pillars} ${themes} ${color} ${newNote}`;
     }
 
     hasTheme(theme) {
@@ -33,6 +38,7 @@ export default class Note {
     hasPillar(pillar) {
         return this._pillars.includes(pillar);
     }
+
 }
 
 Note.THEMES = {
