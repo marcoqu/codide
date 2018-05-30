@@ -27,8 +27,14 @@ export class WhiteBoard {
     }
 
     highlightNotes(val) {
-        this._whiteBoard.selectAll(".note")
-            .classed("highlighted", d => val && (d.hasTheme(val) || d.hasPillar(val)))
+        if (!val) {
+            this._whiteBoard.selectAll(".highlighted").classed("highlighted", false);
+            this._whiteBoard.selectAll(".color").classed("color", false);
+        } else {
+            this._whiteBoard.selectAll(".note")
+                .classed("highlighted", d => val && (d.hasTheme(val) || d.hasPillar(val)))
+                .select(`.${val}`).classed("color", true);
+        }
     }
 
     zoomToBounds() {

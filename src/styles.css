@@ -209,6 +209,10 @@ HTML, BODY {
     height: 24px;
 }
 
+.icons .color {
+    color: yellow;
+}
+
 .pillars {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
