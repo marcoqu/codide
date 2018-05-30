@@ -32,10 +32,6 @@ HTML, BODY {
     justify-content: center;
 }
 
-#hamburger.fa-bars {
-
-}
-
 #menu.open #left-panel {
     margin-left: 0;
 }
@@ -64,12 +60,16 @@ HTML, BODY {
 }
 
 #left-panel .checkbox-wrapper {
-    display: block;
+    display: flex;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     font-size: 18px;
     color: white;
     padding-bottom: 10px;
+}
+
+#left-panel span {
+    padding-left: 5px;
 }
 
 #left-panel h1 {
@@ -81,11 +81,16 @@ HTML, BODY {
 }
 
 #left-panel .closebtn {
+    color: white;
+    cursor: pointer;
     position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+    right: 10px;
+    top: 10px;
+    width:60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .note {
