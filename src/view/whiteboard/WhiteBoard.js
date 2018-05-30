@@ -38,13 +38,11 @@ export class WhiteBoard {
         this._dragBehaviour = d3.drag()
             .on("start", (d,i,g) => this._onDragStart(d,i,g))
             .on("drag", (d,i,g) => this._onDrag(d,i,g))
-            .on("end", (d,i,g) => this._onDragEnd(d,i,g))
+            .on("end", (d,i,g) => this._onDragEnd(d,i,g));
 
+        this._whiteBoard = d3.select("#whiteboard");    
         this._whiteBoardContainer = d3.select("#whiteboard-container");
-        this._whiteBoardListener = d3.select("#whiteboard-listener");
-        this._whiteBoard = d3.select("#whiteboard");
-
-        this._whiteBoardListener.call(this._zoomBehaviour);
+        this._whiteBoardContainer.call(this._zoomBehaviour);
     }
 
     _initKeybindings() {
@@ -64,13 +62,12 @@ export class WhiteBoard {
 
     _onZoomed() {
         const tr = this._currentTransform = d3.event.transform;
-        const mouse = d3.mouse(this._whiteBoardListener.node());
+        const mouse = d3.mouse(this._whiteBoardContainer.node());
         this._whiteBoard.style("transform-origin", `${(mouse[0] - tr.x) * tr.k}px ${(mouse[1] - tr.y) * tr.k}px`);
         this._whiteBoard.style("transform", `translate(${tr.x}px ,${tr.y}px) scale(${tr.k})`);
     }
 
     _onDragStart(d, i, g) {
-        d3.event.sourceEvent.stopPropagation();
         d3.select(g[i])
             .classed("dragging", true)
             .classed("new", false)

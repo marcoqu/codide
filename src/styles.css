@@ -13,12 +13,6 @@ HTML, BODY {
     height: 100%;
 }
 
-#whiteboard-listener {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
 #menu.open #left-panel {
     margin-left: 0;
 }
