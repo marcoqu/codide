@@ -1,14 +1,16 @@
-BUGS:
-Slight jump on zoomed-out panning
-Zoom not exactly centered on mouse
-Mousewheel should zoom also on notes
-CODIDE logo missing
-note styles: .hovered .dragging .highlighted .new
-panel labels hover styles
+## BUGS:
+
+☐ Slight jump on zoomed-out panning
+☐ Zoom not exactly centered on mouse
+☐ Mousewheel should zoom also on notes
+☐ CODIDE logo missing
+☐ note styles: .hovered .dragging .highlighted .new
+☐ panel labels hover styles
 ✅ Drag/hand cursor on notes
 ✅ Use polling instead of one-time loading
 
-NEW FEATURES:
+## NEW FEATURES:
+
 Zoom to bounds
 New note notification
 New note positioning
