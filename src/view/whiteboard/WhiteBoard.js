@@ -31,6 +31,44 @@ export class WhiteBoard {
             .classed("highlighted", d => val && (d.hasTheme(val) || d.hasPillar(val)))
     }
 
+    zoomToBounds() {
+        const bounds = this._getBounds();
+        const containerBounds = this._whiteBoardContainer.node().getBoundingClientRect();
+
+        const dx = bounds.width;
+        const dy = bounds.height;
+        const x = bounds.left + bounds.width / 2;
+        const y = bounds.top + bounds.height / 2;
+        
+        const scale = Math.max(dx / containerBounds.width, dy / containerBounds.height);
+        const translate = [containerBounds.width / 2 - scale * x, containerBounds.height / 2 - scale * y];
+      
+        this._whiteBoard.transition()
+            .duration(750)
+            .call(this._zoomBehaviour.transform, d3.zoomIdentity.translate(translate[0],translate[1]).scale(scale) ); // updated for d3 v4
+    }
+
+    _getBounds() {
+        const bounds = {
+            left: Infinity,
+            right: -Infinity,
+            top: Infinity,
+            bottom: -Infinity,
+            height: 0,
+            width: 0,
+        }
+        this._whiteBoard.selectAll(".note").each((d,i,g) => {
+            const bb = g[i].getBoundingClientRect();
+            bounds.left = bounds.left < bb.left ? bounds.left : bb.left;
+            bounds.right = bounds.right > bb.right ? bounds.right : bb.right;
+            bounds.top = bounds.top < bb.top ? bounds.top : bb.top;
+            bounds.bottom = bounds.bottom > bb.bottom ? bounds.bottom : bb.bottom;
+        })
+        bounds.height = bounds.bottom - bounds.top;
+        bounds.width = bounds.right - bounds.left;
+        return bounds;
+    }
+
     _initBoard() {
         this._zoomBehaviour = d3.zoom()
             .on("zoom", () => this._onZoomed());
