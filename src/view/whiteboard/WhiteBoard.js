@@ -108,6 +108,7 @@ export class WhiteBoard {
         this._whiteBoard.style("transform", `translate(${tr.x}px ,${tr.y}px) scale(${tr.k})`);
         this._whiteBoard.style("transform-origin", `0 0`);
         this._whiteBoard.classed("low_zoom", tr.k < WhiteBoard.LOW_ZOOM);
+        // this._whiteBoard.selectAll(".note").style("border-width", `${5 / tr.k}px`);
     }
 
     _onDragStart(d, i, g) {
