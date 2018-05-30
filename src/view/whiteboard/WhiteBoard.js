@@ -137,9 +137,11 @@ export class WhiteBoard {
     _onDrag(d, i, g) {
         d.x += d3.event.dx / this._currentTransform.k;
         d.y += d3.event.dy / this._currentTransform.k;
+        const x = Math.floor(d.x / WhiteBoard.SNAPX) * WhiteBoard.SNAPX;
+        const y = Math.floor(d.y / WhiteBoard.SNAPY) * WhiteBoard.SNAPY;
         d3.select(g[i])
-            .style("top", d => `${d.y}px`)
-            .style("left", d => `${d.x}px`);
+            .style("top", d => `${y}px`)
+            .style("left", d => `${x}px`);
     }
 
     _onDragEnd(d, i, g) {
@@ -194,3 +196,5 @@ export class WhiteBoard {
 }
 
 WhiteBoard.LOW_ZOOM = 0.3;
+WhiteBoard.SNAPX = 1;
+WhiteBoard.SNAPY = 1;

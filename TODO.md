@@ -15,6 +15,9 @@
 - ✅ New note positioning
 - ✅ Remove text on low zoom levels
 - ? Additional data only on hover
-- ? Grid snapping
+- ✅ Grid snapping (currently set to 1px)
 - ✅ Highlight notes when hovering on categories
 - ✅ Hovering the checkbox label, icons in notes are colored
+
+#### STYLES:
+- 
