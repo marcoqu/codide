@@ -35,17 +35,21 @@ export class WhiteBoard {
         const bounds = this._getBounds();
         const containerBounds = this._whiteBoardContainer.node().getBoundingClientRect();
 
-        const dx = bounds.width;
-        const dy = bounds.height;
-        const x = bounds.left + bounds.width / 2;
-        const y = bounds.top + bounds.height / 2;
+        const dx = bounds.width / this._currentTransform.k;
+        const dy = bounds.height / this._currentTransform.k;
+        const x = (bounds.left - this._currentTransform.x) / this._currentTransform.k;
+        const y = (bounds.top - this._currentTransform.y) / this._currentTransform.k;
         
-        const scale = Math.max(dx / containerBounds.width, dy / containerBounds.height);
-        const translate = [containerBounds.width / 2 - scale * x, containerBounds.height / 2 - scale * y];
-      
-        this._whiteBoard.transition()
-            .duration(750)
-            .call(this._zoomBehaviour.transform, d3.zoomIdentity.translate(translate[0],translate[1]).scale(scale) ); // updated for d3 v4
+        const scale = Math.min(containerBounds.width / dx, containerBounds.height / dy);
+        const translate = [
+            (-x * scale) + ((containerBounds.width - dx * scale) / 2),
+            (-y * scale) + ((containerBounds.height - dy * scale) / 2),
+        ];
+        this._currentTransform = d3.zoomIdentity.translate(translate[0],translate[1]).scale(scale);
+        this._whiteBoardContainer
+            .transition()
+            .duration(500)
+            .call(this._zoomBehaviour.transform, this._currentTransform);
     }
 
     _getBounds() {
