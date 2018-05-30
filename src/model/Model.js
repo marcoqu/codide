@@ -32,7 +32,19 @@ export default class Model {
         clearInterval(this._poller);
     }
 
-    clearStorage() {
+    saveLocalStorage() {
+        const obj = this._notes.reduce((memo, note, idx) => {
+            memo[idx] = {
+                x: note.x,
+                y: note.y,
+                color: note.color,
+            };
+            return memo;
+        }, {});
+        window.localStorage.setItem('localData', JSON.stringify(obj));
+    }
+
+    clearLocalStorage() {
         window.localStorage.clear();
     }
 
@@ -77,18 +89,6 @@ export default class Model {
     _loadLocalStorage() {
         const jsonStr = window.localStorage.getItem('localData') || '{}';
         return JSON.parse(jsonStr);
-    }
-
-    _saveLocalStorage() {
-        const obj = this._notes.reduce((memo, note, idx) => {
-            memo[idx] = {
-                x: note.x,
-                y: note.y,
-                color: note.color,
-            };
-            return memo;
-        }, {});
-        window.localStorage.setItem('localData', JSON.stringify(obj));
     }
 
 }

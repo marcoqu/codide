@@ -59,8 +59,8 @@ export default class WhiteBoard {
     // INIT
 
     _init() {
-        this._whiteBoard = d3.select('#whiteboard');
-        this._whiteBoardContainer = d3.select('#whiteboard-container');
+        this._whiteBoard = this._container.select('#whiteboard');
+        this._whiteBoardContainer = this._container.select('#whiteboard-container');
 
         this._zoomBehaviour = d3.zoom()
             .on('zoom', () => this._onZoomed());
@@ -70,9 +70,8 @@ export default class WhiteBoard {
             .on('drag', (d, i, g) => this._onDrag(d, i, g))
             .on('end', (d, i, g) => this._onDragEnd(d, i, g));
 
-        this._whiteBoardContainer
-            .call(this._zoomBehaviour)
-            .on('keypress', () => this._onKeyPress());
+        this._whiteBoardContainer.call(this._zoomBehaviour);
+        this._container.on('keypress', () => this._onKeyPress());
     }
 
     // USER HANDLERS
@@ -86,7 +85,7 @@ export default class WhiteBoard {
             .classed(color, true)
             .each((d) => { d.color = color; });
 
-        this._model._saveStorage();
+        this._model.saveLocalStorage();
     }
 
     _onZoomed() {
@@ -119,7 +118,7 @@ export default class WhiteBoard {
 
     _onDragEnd(d, i, g) {
         d3.select(g[i]).classed('dragging', false);
-        this._model._saveStorage();
+        this._model.saveLocalStorage();
     }
 
     _onNoteOver(d, i, g) {

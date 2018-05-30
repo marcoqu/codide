@@ -5,7 +5,7 @@ export default class Panel {
 
     constructor(model, container) {
         this._model = model;
-        this._menu = d3.select(container).select('#menu');
+        this._menu = container.select('#menu');
 
         this.categoryHovered = new Signal();
 

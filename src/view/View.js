@@ -14,7 +14,7 @@ export default class View {
 
     constructor(model, config) {
         this._model = model;
-        this._container = window.document.body;
+        this._container = d3.select(window.document.body);
 
         this._whiteBoard = new WhiteBoard(this._model, this._container, config);
 
