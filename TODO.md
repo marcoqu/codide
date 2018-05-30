@@ -17,6 +17,7 @@
 - ✅ Grid snapping (currently set to 1px)
 - ✅ Highlight notes when hovering on categories
 - ✅ Hovering the checkbox label, icons in notes are colored
+- ✅ Config file
 
 #### STYLES:
 - .note.hovered
