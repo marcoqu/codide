@@ -3,7 +3,6 @@
 - ✅ Zoom not exactly centered on mouse
 - ✅ Mousewheel should zoom also on notes
 - ✅ CODIDE logo added
-- note styles: .hovered .dragging .highlighted .new
 - ✅ panel labels hover styles
 - ✅ Drag/hand cursor on notes
 - ✅ Use polling instead of one-time loading
@@ -14,10 +13,14 @@
 - ✅ "0" to remove color
 - ✅ New note positioning
 - ✅ Remove text on low zoom levels
-- ? Additional data only on hover
 - ✅ Grid snapping (currently set to 1px)
 - ✅ Highlight notes when hovering on categories
 - ✅ Hovering the checkbox label, icons in notes are colored
 
 #### STYLES:
-- 
+- .note.hovered
+- .note.dragging
+- .note.highlighted
+- .note.new
+- .icons .color
+- .low_zoom .note
