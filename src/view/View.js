@@ -1,3 +1,5 @@
+import * as d3 from "d3";
+
 // @ts-ignore
 import * as fontawesome  from "@fortawesome/fontawesome";
 // @ts-ignore
@@ -17,6 +19,9 @@ export class View {
         this._panel = new Panel(this._model, window.document.body);
         this._panel.hovered.add((val) => this._wb.highlightNotes(val))
 
+        d3.select("#rescale-button").on("click", () => {
+            this._wb.zoomToBounds()
+        });
     }
 
 }

@@ -31,6 +31,48 @@ export class WhiteBoard {
             .classed("highlighted", d => val && (d.hasTheme(val) || d.hasPillar(val)))
     }
 
+    zoomToBounds() {
+        const bounds = this._getBounds();
+        const containerBounds = this._whiteBoardContainer.node().getBoundingClientRect();
+
+        const dx = bounds.width / this._currentTransform.k;
+        const dy = bounds.height / this._currentTransform.k;
+        const x = (bounds.left - this._currentTransform.x) / this._currentTransform.k;
+        const y = (bounds.top - this._currentTransform.y) / this._currentTransform.k;
+        
+        const scale = Math.min(containerBounds.width / dx, containerBounds.height / dy);
+        const translate = [
+            (-x * scale) + ((containerBounds.width - dx * scale) / 2),
+            (-y * scale) + ((containerBounds.height - dy * scale) / 2),
+        ];
+        this._currentTransform = d3.zoomIdentity.translate(translate[0],translate[1]).scale(scale);
+        this._whiteBoardContainer
+            .transition()
+            .duration(500)
+            .call(this._zoomBehaviour.transform, this._currentTransform);
+    }
+
+    _getBounds() {
+        const bounds = {
+            left: Infinity,
+            right: -Infinity,
+            top: Infinity,
+            bottom: -Infinity,
+            height: 0,
+            width: 0,
+        }
+        this._whiteBoard.selectAll(".note").each((d,i,g) => {
+            const bb = g[i].getBoundingClientRect();
+            bounds.left = bounds.left < bb.left ? bounds.left : bb.left;
+            bounds.right = bounds.right > bb.right ? bounds.right : bb.right;
+            bounds.top = bounds.top < bb.top ? bounds.top : bb.top;
+            bounds.bottom = bounds.bottom > bb.bottom ? bounds.bottom : bb.bottom;
+        })
+        bounds.height = bounds.bottom - bounds.top;
+        bounds.width = bounds.right - bounds.left;
+        return bounds;
+    }
+
     _initBoard() {
         this._zoomBehaviour = d3.zoom()
             .on("zoom", () => this._onZoomed());
