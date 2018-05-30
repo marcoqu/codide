@@ -8,11 +8,11 @@
         <span class="pillar p4" title="Design for cultural and creative industries">IV</span>
     </div>
     <div class="themes">
-        <i class="fas fa-fire burning-issues" title="“Burning issues” della ricerca"></i>
-        <i class="fas fa-flask produzione-scientifica" title="Produzione scientifica e valutazione"></i>
-        <i class="fas fa-chalkboard-teacher didattica-innovativa" title="Didattica innovativa"></i>
-        <i class="fas fa-sync-alt disseminazione" title="Disseminazione e trasferimento conoscenza"></i>
-        <i class="fas fa-flag internazionalizzazione" title="Internazionalizzazione"></i>
-        <i class="fas fa-building bovisa" title="Bovisa distretto dell’innovazione"></i>
+        <i class="theme fas fa-fire burning-issues" title="“Burning issues” della ricerca"></i>
+        <i class="theme fas fa-flask produzione-scientifica" title="Produzione scientifica e valutazione"></i>
+        <i class="theme fas fa-chalkboard-teacher didattica-innovativa" title="Didattica innovativa"></i>
+        <i class="theme fas fa-sync-alt disseminazione" title="Disseminazione e trasferimento conoscenza"></i>
+        <i class="theme fas fa-flag internazionalizzazione" title="Internazionalizzazione"></i>
+        <i class="theme fas fa-building bovisa" title="Bovisa distretto dell’innovazione"></i>
     </div>
 </div>
