@@ -4,7 +4,8 @@ export class Note {
         this.id =id;
 
         this.text = obj["Il tuo contributo"];
-        this._author = obj["Autore"];
+        this._author = obj["Autore"].split(' ').map(function(w) { return w.charAt(0).toUpperCase() + '. '}).join('')
+
         this._pillars = obj["Pillar tematici di riferimento"].split(", ").map(s => Note.PILLARS[s]);
         this._themes = obj["Ambiti strategici di riferimento"].split(", ").map(s => Note.THEMES[s]);
         this._timestamp = obj["Timestamp"];
@@ -30,12 +31,12 @@ export class Note {
 }
 
 Note.THEMES = {
-    "“Burning issues” della ricerca": "burning-issues", 
-    "Produzione scientifica e valutazione": "produzione-scientifica", 
-    "Didattica innovativa": "didattica-innovativa", 
-    "Disseminazione e trasferimento conoscenza": "disseminazione", 
-    "Internazionalizzazione": "internazionalizzazione", 
-    "Bovisa distretto dell’innovazione": "Bovisa", 
+    "“Burning issues” della ricerca": "burning-issues",
+    "Produzione scientifica e valutazione": "produzione-scientifica",
+    "Didattica innovativa": "didattica-innovativa",
+    "Disseminazione e trasferimento conoscenza": "disseminazione",
+    "Internazionalizzazione": "internazionalizzazione",
+    "Bovisa distretto dell’innovazione": "Bovisa",
 }
 
 Note.PILLARS = {
