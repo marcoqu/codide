@@ -29,6 +29,7 @@ export default class WhiteBoard {
             return;
         }
 
+        if (!this._notesSel) { return; }
         this._notesSel
             .classed('highlighted', d => category && (d.hasTheme(category) || d.hasPillar(category)))
             .select(`.${category}`).classed('color', true);

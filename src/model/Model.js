@@ -8,7 +8,7 @@ export default class Model {
 
     constructor(config) {
         this._sheetId = config.sheetId;
-        if (!this._sheetId) { throw new Error('No sheet id found. Check the config.json file.'); }
+        if (!this._sheetId) { throw new Error('No Spreadsheet id found. Check the config/config.json file.'); }
 
         this._pollingDelay = config.pollingSeconds || Model.POLLING_SECONDS;
         this._activePillars = [];
