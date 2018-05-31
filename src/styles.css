@@ -41,6 +41,11 @@ HTML, BODY {
     left: 80px;
 }
 
+#menu {
+    position: absolute;
+    z-index: 999999;
+}
+
 #menu.open #left-panel {
     margin-left: 0;
 }
