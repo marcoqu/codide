@@ -46,6 +46,8 @@ export default class Model {
 
     clearLocalStorage() {
         window.localStorage.clear();
+        this._notes.forEach(n => n.clearMergedData());
+        this._updateData();
     }
 
     async loadData() {

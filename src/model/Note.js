@@ -39,6 +39,16 @@ export default class Note {
         return this._pillars.includes(pillar);
     }
 
+    hasPosition() {
+        return this.x && this.y;
+    }
+
+    clearMergedData() {
+        this.x = undefined;
+        this.y = undefined;
+        this.color = undefined;
+    }
+
 }
 
 Note.THEMES = {

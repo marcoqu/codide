@@ -81,9 +81,8 @@ export default class WhiteBoard {
         const color = `color${d3.event.keyCode - 48}`;
 
         d3.select(this._hoveredNote)
-            .classed('color0 color1 color2 color3 color4 color5 color6', false)
-            .classed(color, true)
-            .each((d) => { d.color = color; });
+            .each((d) => { d.color = color; })
+            .each((d, i, g) => this._setColor(d, i, g));
 
         this._model.saveLocalStorage();
     }
@@ -147,11 +146,16 @@ export default class WhiteBoard {
             .call(this._dragBehaviour)
             .on('mouseover', (d, i, g) => this._onNoteOver(d, i, g))
             .on('mouseout', () => this._onNoteOut())
-            .each(n => this._setInitialPosition(n))
 
             .merge(dataJoin)
+            .each((d, i, g) => {
+                if (d.hasPosition()) { return; }
+                this._setInitialPosition(d);
+                d3.select(g[i]).style('z-index', null);
+            })
             .style('top', d => `${d.y}px`)
             .style('left', d => `${d.x}px`)
+            .each((d, i, g) => this._setColor(d, i, g))
             .html(d => noteTpl(d));
 
         dataJoin.exit().remove();
@@ -160,7 +164,6 @@ export default class WhiteBoard {
     // HELPERS
 
     _setInitialPosition(note) {
-        if (note.x && note.y) { return; }
         let x = -this._currentTr.y / this._currentTr.k;
         let y = -this._currentTr.y / this._currentTr.k;
         while (true) {
@@ -174,6 +177,12 @@ export default class WhiteBoard {
             x += 20;
             y += 20;
         }
+    }
+
+    _setColor(d, i, g) {
+        d3.select(g[i])
+            .classed('color0 color1 color2 color3 color4 color5 color6', false)
+            .classed(d.color || '', true);
     }
 
     _getWhiteBoardBounds() {
