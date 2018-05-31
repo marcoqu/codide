@@ -37,6 +37,7 @@ HTML, BODY {
 #logo-codide img {
     height: 60px;
     position: absolute;
+    pointer-events: none;
     top: 10px;
     left: 80px;
 }
