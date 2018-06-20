@@ -1,0 +1,331 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Open+Sans|Roboto|Roboto+Slab);
+HTML, BODY {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+#whiteboard-container {
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#whiteboard-listener {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* INTERFACE */
+
+#hamburger {
+    background-color: #228293;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width:60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#logo-codide {
+    top: 10px;
+    left: 80px;
+    height: 60px;
+    width: 150px;
+    position: absolute;
+    pointer-events: none;
+    background-image: url(81d6b5676073452d046a1549186eefe5.svg);
+    background-repeat: no-repeat;
+}
+
+#menu {
+    position: absolute;
+    z-index: 999999;
+}
+
+#menu.open #left-panel {
+    margin-left: 0;
+}
+
+#left-panel {
+    margin-left: -300px;
+    height: 100%;
+    /* 100% Full-height */
+    width: 300px;
+    /* 0 width - change this with JavaScript */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Stay on top */
+    top: 0;
+    /* Stay at the top */
+    left: 0;
+    background-color: #228293;
+    /* Black*/
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    transition: 0.5s;
+    /* 0.5 second transition effect to slide in the sidenav */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#left-panel .checkbox-wrapper {
+    display: flex;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: white;
+    padding-bottom: 10px;
+}
+
+#left-panel .checkbox-wrapper input[type="checkbox"] {
+    display: none;
+}
+
+#left-panel .checkbox-wrapper span {
+    padding: 8px 20px 8px 10px;
+    margin: -3px -10px;
+    display: block;
+    width: 100%;
+    user-select: none;
+}
+
+#left-panel .checkbox-wrapper span:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#left-panel .checkbox-wrapper input[type="checkbox"]:checked + span {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#left-panel span {
+    padding-left: 5px;
+}
+
+#left-panel h1 {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 32px;
+    color: white;
+    font-size: 28px;
+    letter-spacing: 2px;
+    margin: 3px 0 10px 0;
+}
+
+#left-panel .closebtn {
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width:60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#rescale-button {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 60px;
+    background-color: #228293;
+    color: white;
+}
+
+#clear-local-storage {
+    display: none;
+}
+
+.fa-expand-arrows-alt {
+    line-height: inherit;
+}
+
+/* NOTES STYLE */
+
+.note {
+    position: absolute;
+    width: 260px;
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    border: 5px solid #ccc;
+    user-select: none;
+}
+
+.low_zoom .note .author,
+.low_zoom .note .note_text,
+.low_zoom .note .icons {
+    opacity: 0;
+}
+
+.note.dragging {
+    z-index: 999;
+}
+
+.note.hovered {
+    cursor: pointer;
+}
+
+.note.highlighted {
+    border-width: 15px;
+    margin: -10px 0 0 -10px;
+}
+
+.variant {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 17px;
+    letter-spacing: 1px;
+}
+
+.note>.author {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+
+.color0 {
+    border-color: #cccccc;
+}
+
+.color1 {
+    border-color: #e41a1c;
+}
+
+.color2 {
+    border-color: #0015ff;
+}
+
+.color3 {
+    border-color: #4daf4a;
+}
+
+.color4 {
+    border-color: #984ea3;
+}
+
+.color5 {
+    border-color: #ff7f00;
+}
+
+.color6 {
+    border-color: #ffff33;
+}
+
+.color7 {
+    border-color: #00b0f0;
+}
+
+
+.icons {
+    padding-top: 20px;
+    color: #4D4D4D;
+    width: 100%;
+    height: 24px;
+}
+
+.icons .color {
+    color: yellow;
+}
+
+.pillars {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    float: left;
+}
+
+.themes {
+    float: right;
+}
+
+.pillar {
+    display: none;
+    pointer-events: none;
+}
+
+.note.p1 .p1 {
+    display: inline;
+}
+
+.note.p2 .p2 {
+    display: inline;
+}
+
+.note.p3 .p3 {
+    display: inline;
+}
+
+.note.p4 .p4 {
+    display: inline;
+}
+
+.note .theme {
+    display: none;
+}
+
+.note.burning-issues .burning-issues {
+    display: inline;
+}
+
+.note.produzione-scientifica .produzione-scientifica {
+    display: inline;
+}
+
+.note.didattica-innovativa .didattica-innovativa {
+    display: inline;
+}
+
+.note.disseminazione .disseminazione {
+    display: inline;
+}
+
+.note.internazionalizzazione .internazionalizzazione {
+    display: inline;
+}
+
+.note.bovisa .bovisa {
+    display: inline;
+}
+
+.note.new {
+    animation-name: newnote;
+    animation-duration: 1s;
+    animation-timing-function: ease-in;
+}
+
+@keyframes newnote {
+    from {
+        opacity: 0.5;
+        box-shadow: 0 0 0 0px rgba(0,0,0,0.1);
+    }
+    to {
+        opacity: 1;
+        box-shadow: 0 0 0 5000px rgba(0,0,0,0.0);
+    }
+}
+
+
+/*# sourceMappingURL=main.fa3ddedf5508042fdd12.css.map*/
