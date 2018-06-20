@@ -1,7 +1,6 @@
-import * as d3 from 'd3';
 import { Signal } from 'signals';
 import { intersection } from 'lodash-es';
-
+import Tabletop from 'tabletop';
 import Note from './Note';
 
 export default class Model {
