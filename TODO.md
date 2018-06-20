@@ -6,7 +6,7 @@
 - ✅ panel labels hover styles
 - ✅ Drag/hand cursor on notes
 - ✅ Use polling instead of one-time loading
-- New posts are hidden by sidebar, move them to the right/center?
+- ✅ New posts are hidden by sidebar, move them to the right/center?
 
 #### NEW FEATURES:
 - ✅ Zoom to bounds
