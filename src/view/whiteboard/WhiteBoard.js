@@ -78,7 +78,7 @@ export default class WhiteBoard {
     // USER HANDLERS
 
     _onKeyPress() {
-        if (d3.event.keyCode < 48 || d3.event.keyCode > 54) { return; }
+        if (d3.event.keyCode < 48 || d3.event.keyCode > 55) { return; }
         const color = `color${d3.event.keyCode - 48}`;
 
         d3.select(this._hoveredNote)
@@ -165,8 +165,8 @@ export default class WhiteBoard {
     // HELPERS
 
     _setInitialPosition(note) {
-        let x = -this._currentTr.y / this._currentTr.k;
-        let y = -this._currentTr.y / this._currentTr.k;
+        let x = (window.innerWidth / 2) + (-this._currentTr.x / this._currentTr.k) - 155;
+        let y = (window.innerHeight / 2) - (this._currentTr.y / this._currentTr.k);
         while (true) {
             // eslint-disable-next-line no-loop-func
             const found = this._notes.find(n => n.x === x && n.y === y);
@@ -182,7 +182,7 @@ export default class WhiteBoard {
 
     _setColor(d, i, g) {
         d3.select(g[i])
-            .classed('color0 color1 color2 color3 color4 color5 color6', false)
+            .classed('color0 color1 color2 color3 color4 color5 color6 color7', false)
             .classed(d.color || '', true);
     }
 

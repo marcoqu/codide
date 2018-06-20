@@ -82,10 +82,25 @@ HTML, BODY {
     color: white;
     padding-bottom: 10px;
 }
-#left-panel .checkbox-wrapper span:hover {
-    font-weight: 600;
+
+#left-panel .checkbox-wrapper input[type="checkbox"] {
+    display: none;
 }
 
+#left-panel .checkbox-wrapper span {
+    padding: 10px;
+    margin: -3px -10px;
+    display: block;
+    width: 100%;
+}
+
+#left-panel .checkbox-wrapper span:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#left-panel .checkbox-wrapper input[type="checkbox"]:checked + span {
+    background-color: rgba(0, 0, 0, 0.5);
+}
 
 #left-panel span {
     padding-left: 5px;
@@ -124,6 +139,10 @@ HTML, BODY {
     text-align: center;
     vertical-align: middle;
     line-height: 60px;
+}
+
+#clear-local-storage {
+    display: none;
 }
 
 .fa-expand-arrows-alt {
@@ -189,7 +208,7 @@ HTML, BODY {
 }
 
 .color2 {
-    border-color: #377eb8;
+    border-color: #0015ff;
 }
 
 .color3 {
@@ -207,6 +226,11 @@ HTML, BODY {
 .color6 {
     border-color: #ffff33;
 }
+
+.color7 {
+    border-color: #00b0f0;
+}
+
 
 .icons {
     padding-top: 20px;

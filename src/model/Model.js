@@ -7,8 +7,8 @@ import Note from './Note';
 export default class Model {
 
     constructor(config) {
-        this._sheetId = config.sheetId;
-        if (!this._sheetId) { throw new Error('No Spreadsheet id found. Check the config/config.json file.'); }
+        this._sheetUrl = config.sheetUrl;
+        if (!this._sheetUrl) { throw new Error('No Spreadsheet id found. Check the config/config.json file.'); }
 
         this._pollingDelay = config.pollingSeconds || Model.POLLING_SECONDS;
         this._activePillars = [];
@@ -75,15 +75,22 @@ export default class Model {
     }
 
     async _loadSpreadsheetCSV() {
-        const url = `https://docs.google.com/spreadsheets/d/e/${this._sheetId}/pub?output=csv`;
-        return d3.csv(url);
+        return new Promise((resolve) => {
+            Tabletop.init({
+                key: this._sheetUrl,
+                simpleSheet: true,
+                callback: data => resolve(data),
+            });
+        });
     }
 
     _parseNotes(rawData, storedData) {
-        return rawData.map((row, idx) => {
-            const storedItem = storedData[idx] || {};
-            return new Note(idx, { ...row, ...storedItem });
-        });
+        return rawData
+            .filter(row => !!row.Timestamp)
+            .map((row, idx) => {
+                const storedItem = storedData[idx] || {};
+                return new Note(idx, { ...row, ...storedItem });
+            });
     }
 
     // LOCAL STORAGE
@@ -95,4 +102,4 @@ export default class Model {
 
 }
 
-Model.POLLING_SECONDS = 30;
+Model.POLLING_SECONDS = 10;

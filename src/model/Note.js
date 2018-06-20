@@ -52,17 +52,17 @@ export default class Note {
 }
 
 Note.THEMES = {
-    '“Burning issues” della ricerca': 'burning-issues',
-    'Produzione scientifica e valutazione': 'produzione-scientifica',
+    'Impatto e oggetti della ricerca': 'burning-issues',
+    'Strategie di produzione scientifica e trasferimento conoscenza': 'produzione-scientifica',
     'Didattica innovativa': 'didattica-innovativa',
     'Disseminazione e trasferimento conoscenza': 'disseminazione',
-    'Internazionalizzazione': 'internazionalizzazione',
+    'Internazionalizzazione. Progetti sfide prospettive': 'internazionalizzazione',
     'Bovisa distretto dell’innovazione': 'Bovisa',
 };
 
 Note.PILLARS = {
-    'Design for advanced manufacturing': 'p1',
+    'Design for Advanced Manufacturing': 'p1',
     'Design for new business and entrepreneurship': 'p2',
-    'Design for social and public-sector innovation': 'p3',
-    'Design for cultural and creative industries': 'p4',
+    'Design for Social and Public Sector Innovation': 'p3',
+    'Design for Cultural and Creative Industries': 'p4',
 };

@@ -1,7 +1,7 @@
 {
-    "sheetId": "2PACX-1vT9lXPCe-DKalObPwYCPOfO4d_W-MdDVA_gE_wH39k2JiNnVC_akmFMKWk8edSmoa-kX0XWjhS_z5gk",
-    "pollingSeconds": 30,
+    "sheetUrl": "https://docs.google.com/spreadsheets/d/12SvDrPr_R6I89B83eSzGrA_hch1sG17Zjcwmnibt9xc/edit?usp=sharing",
+    "pollingSeconds": 10,
     "snap": [1, 1],
-    "zoomThreshold": 0.3,
+    "zoomThreshold": -9999999999,
     "scaleBorder": true
 }
