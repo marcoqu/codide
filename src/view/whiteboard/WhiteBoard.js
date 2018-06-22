@@ -1,4 +1,6 @@
-import * as d3 from 'd3';
+import { zoomIdentity, zoom } from 'd3-zoom';
+import { drag } from 'd3-drag';
+import { event, select } from 'd3-selection';
 
 // @ts-ignore
 import noteTpl from './note.tpl';
@@ -13,7 +15,7 @@ export default class WhiteBoard {
         this._zoomThreshold = config.zoomThreshold || WhiteBoard.ZOOM_THRESHOLD;
         this._scaleBorder = config.scaleBorder || WhiteBoard.SCALE_BORDER;
 
-        this._currentTr = d3.zoomIdentity;
+        this._currentTr = zoomIdentity;
         this._hoveredNote = null;
         this._highestZIndex = 1;
 
@@ -50,7 +52,7 @@ export default class WhiteBoard {
             (-y * scale) + ((containerBounds.height - (dy * scale)) / 2),
         ];
 
-        this._currentTr = d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale);
+        this._currentTr = zoomIdentity.translate(translate[0], translate[1]).scale(scale);
         this._whiteBoardContainer
             .transition()
             .duration(500)
@@ -63,10 +65,10 @@ export default class WhiteBoard {
         this._whiteBoard = this._container.select('#whiteboard');
         this._whiteBoardContainer = this._container.select('#whiteboard-container');
 
-        this._zoomBehaviour = d3.zoom()
+        this._zoomBehaviour = zoom()
             .on('zoom', () => this._onZoomed());
 
-        this._dragBehaviour = d3.drag()
+        this._dragBehaviour = drag()
             .on('start', (d, i, g) => this._onDragStart(d, i, g))
             .on('drag', (d, i, g) => this._onDrag(d, i, g))
             .on('end', (d, i, g) => this._onDragEnd(d, i, g));
@@ -78,10 +80,10 @@ export default class WhiteBoard {
     // USER HANDLERS
 
     _onKeyPress() {
-        if (d3.event.keyCode < 48 || d3.event.keyCode > 55) { return; }
-        const color = `color${d3.event.keyCode - 48}`;
+        if (event.keyCode < 48 || event.keyCode > 55) { return; }
+        const color = `color${event.keyCode - 48}`;
 
-        d3.select(this._hoveredNote)
+        select(this._hoveredNote)
             .each((d) => { d.color = color; })
             .each((d, i, g) => this._setColor(d, i, g));
 
@@ -90,7 +92,7 @@ export default class WhiteBoard {
 
     _onZoomed() {
         // eslint-disable-next-line no-multi-assign
-        const tr = this._currentTr = d3.event.transform;
+        const tr = this._currentTr = event.transform;
         this._whiteBoard
             .style('transform', `translate(${tr.x}px ,${tr.y}px) scale(${tr.k})`)
             .style('transform-origin', '0 0')
@@ -99,7 +101,7 @@ export default class WhiteBoard {
     }
 
     _onDragStart(d, i, g) {
-        d3.select(g[i])
+        select(g[i])
             .classed('dragging', true)
             .classed('new', false)
             .style('z-index', this._highestZIndex);
@@ -107,27 +109,27 @@ export default class WhiteBoard {
     }
 
     _onDrag(d, i, g) {
-        d.x += d3.event.dx / this._currentTr.k;
-        d.y += d3.event.dy / this._currentTr.k;
+        d.x += event.dx / this._currentTr.k;
+        d.y += event.dy / this._currentTr.k;
         const x = Math.floor(d.x / this._snap[0]) * this._snap[0];
         const y = Math.floor(d.y / this._snap[1]) * this._snap[1];
-        d3.select(g[i])
+        select(g[i])
             .style('top', () => `${y}px`)
             .style('left', () => `${x}px`);
     }
 
     _onDragEnd(d, i, g) {
-        d3.select(g[i]).classed('dragging', false);
+        select(g[i]).classed('dragging', false);
         this._model.saveLocalStorage();
     }
 
     _onNoteOver(d, i, g) {
         this._hoveredNote = g[i];
-        d3.select(this._hoveredNote).classed('hovered', true);
+        select(this._hoveredNote).classed('hovered', true);
     }
 
     _onNoteOut() {
-        d3.select(this._hoveredNote).classed('hovered', false);
+        select(this._hoveredNote).classed('hovered', false);
         this._hoveredNote = null;
     }
 
@@ -152,7 +154,7 @@ export default class WhiteBoard {
             .each((d, i, g) => {
                 if (d.hasPosition()) { return; }
                 this._setInitialPosition(d);
-                d3.select(g[i]).style('z-index', null);
+                select(g[i]).style('z-index', null);
             })
             .style('top', d => `${d.y}px`)
             .style('left', d => `${d.x}px`)
@@ -181,7 +183,7 @@ export default class WhiteBoard {
     }
 
     _setColor(d, i, g) {
-        d3.select(g[i])
+        select(g[i])
             .classed('color0 color1 color2 color3 color4 color5 color6 color7', false)
             .classed(d.color || '', true);
     }

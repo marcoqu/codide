@@ -8,7 +8,7 @@ module.exports = (env, argv) => {
     const devMode = mode === 'development';
     return {
         mode,
-        entry: ['babel-polyfill', './src/entry.js'],
+        entry: ['./src/entry.js'],
         output: {
             path: path.resolve(__dirname, 'dist'),
             filename: 'bundle.js',
@@ -24,16 +24,18 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.tpl$/,
-                    use: 'underscore-template-loader',
+                    use: {
+                        loader: 'underscore-template-loader',
+                        options: {
+                            engine: 'lodash-es/escape',
+                        },
+                    },
                 },
                 {
                     test: /\.js$/,
                     exclude: /(node_modules|bower_components)/,
                     use: {
                         loader: 'babel-loader',
-                        options: {
-                            presets: ['@babel/preset-env'],
-                        },
                     },
                 },
                 {
@@ -50,7 +52,7 @@ module.exports = (env, argv) => {
                 template: './src/index.html',
                 favicon: './src/images/favicon.png',
             }),
-            new webpack.HotModuleReplacementPlugin(),
+            // new webpack.HotModuleReplacementPlugin(),
             new MiniCssExtractPlugin({
                 filename: '[name].[hash].css',
                 chunkFilename: '[id].[hash].css',
@@ -58,6 +60,6 @@ module.exports = (env, argv) => {
         ],
         devServer: { hot: true },
         devtool: 'source-map',
-        externals: ['tls', 'fs', 'net'],
+        externals: ['tls', 'fs', 'net', 'request', 'nsp'],
     };
 };

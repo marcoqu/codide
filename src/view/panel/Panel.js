@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import { select } from 'd3-selection';
 import { Signal } from 'signals';
 
 export default class Panel {
@@ -52,7 +52,7 @@ export default class Panel {
     }
 
     _onCheckBoxOver(d, i, g) {
-        const category = d3.select(g[i]).select('input').property('value');
+        const category = select(g[i]).select('input').property('value');
         this.categoryHovered.dispatch(category);
     }
 
