@@ -14,6 +14,7 @@ export default class View {
 
     constructor(model, config) {
         this._model = model;
+        this._model.dataChanged.add(() => this._onDataChanged())
         this._container = d3.select(window.document.body);
 
         this._whiteBoard = new WhiteBoard(this._model, this._container, config);
@@ -22,6 +23,10 @@ export default class View {
         this._panel.categoryHovered.add(val => this._whiteBoard.highlightCategory(val));
 
         d3.select('#rescale-button').on('click', () => this._whiteBoard.zoomToBounds());
+    }
+
+    _onDataChanged() {
+        d3.select('#loading').style('display', 'none');
     }
 
 }
