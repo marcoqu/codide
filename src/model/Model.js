@@ -14,6 +14,7 @@ export default class Model {
         this._activeThemes = [];
 
         this.dataChanged = new Signal();
+        this.uid = this.getUid() || this.createUid();
     }
 
     setFilters(pillars, themes) {
@@ -24,7 +25,10 @@ export default class Model {
 
     startPolling() {
         this.loadData();
-        this._poller = setInterval(() => this.loadData(), 1000 * this._pollingDelay);
+        this._poller = setInterval(() => {
+            this.loadData();
+            this.logData();
+        }, 1000 * this._pollingDelay);
     }
 
     stopPolling() {
@@ -32,7 +36,11 @@ export default class Model {
     }
 
     saveLocalStorage() {
-        const obj = this._notes.reduce((memo, note, idx) => {
+        window.localStorage.setItem('localData', JSON.stringify(this.serializeData()));
+    }
+
+    serializeData() {
+        return this._notes.reduce((memo, note, idx) => {
             memo[idx] = {
                 x: note.x,
                 y: note.y,
@@ -40,7 +48,26 @@ export default class Model {
             };
             return memo;
         }, {});
-        window.localStorage.setItem('localData', JSON.stringify(obj));
+    }
+
+    logData() {
+        if (!this._notes) { return; }
+        const obj = { id: this.getUid(), ...this.serializeData() };
+        fetch('http://knowledgecartography.org/codidelog/log.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(obj),
+        });
+    }
+
+    createUid() {
+        const uid = Math.floor(Math.random() * 100000000000).toString();
+        window.localStorage.setItem('uid', uid);
+        return uid;
+    }
+
+    getUid() {
+        return window.localStorage.getItem('uid');
     }
 
     clearLocalStorage() {
@@ -65,11 +92,11 @@ export default class Model {
 
     _filterData(n) {
         const pillarMatch = !n._pillars.length ||
-                        !this._activePillars.length ||
-                        !!intersection(n._pillars, this._activePillars).length;
+            !this._activePillars.length ||
+            !!intersection(n._pillars, this._activePillars).length;
         const themesMatch = !n._themes.length ||
-                        !this._activeThemes.length ||
-                        !!intersection(n._themes, this._activeThemes).length;
+            !this._activeThemes.length ||
+            !!intersection(n._themes, this._activeThemes).length;
         return pillarMatch && themesMatch;
     }
 
