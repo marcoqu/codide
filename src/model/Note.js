@@ -57,7 +57,7 @@ Note.THEMES = {
     'Didattica innovativa': 'didattica-innovativa',
     'Disseminazione e trasferimento conoscenza': 'disseminazione',
     'Internazionalizzazione. Progetti sfide prospettive': 'internazionalizzazione',
-    'Bovisa distretto dell’innovazione': 'Bovisa',
+    'Bovisa distretto dell’innovazione': 'bovisa',
 };
 
 Note.PILLARS = {
