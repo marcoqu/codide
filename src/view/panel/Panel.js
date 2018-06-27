@@ -6,6 +6,7 @@ export default class Panel {
     constructor(model, container) {
         this._model = model;
         this._menu = container.select('#menu');
+        this._model.dataChanged.add(() => this._onDataChanged());
 
         this.categoryHovered = new Signal();
 
@@ -58,6 +59,19 @@ export default class Panel {
 
     _onCheckBoxOut() {
         this.categoryHovered.dispatch(null);
+    }
+
+    _onDataChanged() {
+        const pillars = this._model.getPillarFilters();
+        const themes = this._model.getThemeFilters();
+
+        [...this._menu.selectAll('.pillars-cb').nodes()].forEach((cb) => {
+            if (pillars.includes(cb.value)) { cb.checked = true; }
+        });
+
+        [...this._menu.selectAll('.themes-cb').nodes()].forEach((cb) => {
+            if (themes.includes(cb.value)) { cb.checked = true; }
+        });
     }
 
 }

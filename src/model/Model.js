@@ -20,7 +20,16 @@ export default class Model {
     setFilters(pillars, themes) {
         this._activePillars = pillars;
         this._activeThemes = themes;
+        this.saveLocalStorage();
         this._updateData();
+    }
+
+    getPillarFilters() {
+        return this._activePillars;
+    }
+
+    getThemeFilters() {
+        return this._activeThemes;
     }
 
     startPolling() {
@@ -36,11 +45,11 @@ export default class Model {
     }
 
     saveLocalStorage() {
-        window.localStorage.setItem('localData', JSON.stringify(this.serializeData()));
+        window.localStorage.setItem('localData', this.serializeData());
     }
 
     serializeData() {
-        return this._notes.reduce((memo, note, idx) => {
+        const notes = this._notes.reduce((memo, note, idx) => {
             memo[idx] = {
                 x: note.x,
                 y: note.y,
@@ -48,15 +57,26 @@ export default class Model {
             };
             return memo;
         }, {});
+
+        const filters = {
+            pillars: this._activePillars,
+            themes: this._activeThemes,
+        };
+
+        return JSON.stringify({
+            id: this.getUid(),
+            timestamp: (new Date()).getTime(),
+            notes,
+            filters,
+        });
     }
 
     logData() {
         if (!this._notes) { return; }
-        const obj = { id: this.getUid(), ...this.serializeData() };
         fetch('http://knowledgecartography.org/codidelog/log.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(obj),
+            body: this.serializeData(),
         });
     }
 
@@ -79,7 +99,9 @@ export default class Model {
     async loadData() {
         const rawData = await this._loadSpreadsheetCSV();
         const storedData = this._loadLocalStorage();
-        this._notes = this._parseNotes(rawData, storedData);
+        this._notes = this._parseNotes(rawData, storedData.notes || {});
+        this._activePillars = storedData.filters ? storedData.filters.pillars || [] : [];
+        this._activeThemes = storedData.filters ? storedData.filters.themes || [] : [];
         this._updateData();
     }
 
@@ -110,11 +132,11 @@ export default class Model {
         });
     }
 
-    _parseNotes(rawData, storedData) {
+    _parseNotes(rawData, storedNotes) {
         return rawData
             .filter(row => !!row.Timestamp)
             .map((row, idx) => {
-                const storedItem = storedData[idx] || {};
+                const storedItem = storedNotes[idx] || {};
                 return new Note(idx, { ...row, ...storedItem });
             });
     }
