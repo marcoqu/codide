@@ -55,7 +55,6 @@ Note.THEMES = {
     'Impatto e oggetti della ricerca': 'burning-issues',
     'Strategie di produzione scientifica e trasferimento conoscenza': 'produzione-scientifica',
     'Didattica innovativa': 'didattica-innovativa',
-    'Disseminazione e trasferimento conoscenza': 'disseminazione',
     'Internazionalizzazione. Progetti sfide prospettive': 'internazionalizzazione',
     'Bovisa distretto dell’innovazione': 'bovisa',
 };
