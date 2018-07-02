@@ -80,8 +80,8 @@ export default class WhiteBoard {
     // USER HANDLERS
 
     _onKeyPress() {
-        if (event.keyCode < 48 || event.keyCode > 55) { return; }
-        const color = `color${event.keyCode - 48}`;
+        if (event.charCode < 48 || event.charCode > 55) { return; }
+        const color = `color${event.charCode - 48}`;
 
         select(this._hoveredNote)
             .each((d) => { d.color = color; })
