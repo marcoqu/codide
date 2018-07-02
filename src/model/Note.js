@@ -1,6 +1,6 @@
 export default class Note {
 
-    constructor(id, obj) {
+    constructor(id, obj, notNew) {
         this.id = id;
 
         this.text = obj['Il tuo contributo'];
@@ -13,7 +13,7 @@ export default class Note {
         this.x = obj.x || 0;
         this.y = obj.y || 0;
         this.color = obj.color;
-        this.new = !(obj.x || obj.y || obj.color);
+        this.new = !(obj.x || obj.y || obj.color || notNew);
     }
 
     getInitials() {

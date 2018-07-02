@@ -33,9 +33,9 @@ export default class Model {
     }
 
     startPolling() {
-        this.loadData();
+        this.loadData(true);
         this._poller = setInterval(() => {
-            this.loadData();
+            this.loadData(false);
             this.logData();
         }, 1000 * this._pollingDelay);
     }
@@ -96,10 +96,10 @@ export default class Model {
         this._updateData();
     }
 
-    async loadData() {
+    async loadData(firstLoad) {
         const rawData = await this._loadSpreadsheetCSV();
-        const storedData = this._loadLocalStorage();
-        this._notes = this._parseNotes(rawData, storedData.notes || {});
+        const storedData = firstLoad ? this._loadLocalStorage() : JSON.parse(this.serializeData());
+        this._notes = this._parseNotes(rawData, storedData.notes || {}, firstLoad);
         this._activePillars = storedData.filters ? storedData.filters.pillars || [] : [];
         this._activeThemes = storedData.filters ? storedData.filters.themes || [] : [];
         this._updateData();
@@ -132,12 +132,12 @@ export default class Model {
         });
     }
 
-    _parseNotes(rawData, storedNotes) {
+    _parseNotes(rawData, storedNotes, firstLoad) {
         return rawData
             .filter(row => !!row.Timestamp)
             .map((row, idx) => {
                 const storedItem = storedNotes[idx] || {};
-                return new Note(idx, { ...row, ...storedItem });
+                return new Note(idx, { ...row, ...storedItem }, firstLoad);
             });
     }
 
