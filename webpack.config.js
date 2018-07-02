@@ -52,12 +52,11 @@ module.exports = (env, argv) => {
                 template: './src/index.html',
                 favicon: './src/images/favicon.png',
             }),
-            // new webpack.HotModuleReplacementPlugin(),
             new MiniCssExtractPlugin({
                 filename: '[name].[hash].css',
                 chunkFilename: '[id].[hash].css',
             }),
-        ],
+        ].concat(devMode ? [new webpack.HotModuleReplacementPlugin()] : []),
         devServer: { hot: true },
         devtool: 'source-map',
         externals: ['tls', 'fs', 'net', 'request', 'nsp'],
