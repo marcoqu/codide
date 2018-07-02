@@ -326,6 +326,7 @@ HTML, BODY {
     animation-name: newnote;
     animation-duration: 1s;
     animation-timing-function: ease-in;
+    background-color: #ffffe5;
 }
 
 @keyframes newnote {
@@ -335,6 +336,6 @@ HTML, BODY {
     }
     to {
         opacity: 1;
-        box-shadow: 0 0 0 5000px rgba(0,0,0,0.0);
+        box-shadow: 0 0 0 500px rgba(0,0,0,0.0);
     }
 }
